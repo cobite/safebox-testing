@@ -10,7 +10,8 @@ RUN apk add --no-cache \
   protobuf-dev \
   build-base \
   cmake \
-  pkgconfig
+  pkgconfig \
+  curl
 
 # Install rustfmt for nightly toolchain
 RUN rustup component add rustfmt
