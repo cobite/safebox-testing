@@ -63,6 +63,16 @@ We now need to ensure you set up your domain to point to your server.
 
 You must set your A record in your domain providers settings to point to your servers IP address. This may take a few hours or longer, depending on your location. You can check many dns lookup websites to see if it has updated yet.
 
+An example A record for the root domain (domain.com) would look like:
+
+TYPE HOST VALUE TTL
+A Record @ server ip 5 min
+
+An example A record for a sub-domain (ant.domain.com) would look like:
+
+TYPE HOST VALUE TTL
+A Record ant server ip 5 min
+
 Once that is done you can proceed:
 
 To start the application, we will do:
