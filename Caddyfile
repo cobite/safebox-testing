@@ -1,0 +1,7 @@
+ant.safemedia.com {
+    reverse_proxy app:8081
+    encode gzip
+    log {
+        output stdout
+    }
+}
