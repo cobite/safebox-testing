@@ -48,12 +48,8 @@ const server = http.createServer(async (req, res) => {
         }
 
         // Forward status code and content-type header from Rust server
-        res.writeHead(antResp.status, {
-            "Content-Type":
-                antResp.headers.get("content-type") ||
-                "application/octet-stream",
-        });
-
+        const headers = Object.fromEntries(antResp.headers.entries());
+        res.writeHead(antResp.status, headers);
         antResp.body.pipe(res);
     } catch (err: any) {
         res.writeHead(500, { "Content-Type": "text/plain" });
