@@ -1,5 +1,10 @@
 ant.safemedia.com {
-    reverse_proxy app:8081
+    # Proxy WebSocket traffic separately
+    reverse_proxy /ws* app:8081
+
+    # Proxy all other traffic to antTP Rust server
+    reverse_proxy /{path*} app:18888
+
     encode gzip
     log {
         output stdout
