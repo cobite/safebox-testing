@@ -1,4 +1,8 @@
 ant.safemedia.com {
+    @noSlash path_regexp noSlash ^/[a-f0-9]{64}$
+    
+    redir @noSlash {http.request.uri}/ 308
+
     # Proxy WebSocket traffic separately
     reverse_proxy /ws* app:8081
 

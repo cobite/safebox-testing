@@ -25,7 +25,7 @@ const server = http.createServer(async (req, res) => {
         return res.end("✨ WebSocket server is live ✨");
     }
 
-    // Validate path is a valid XOR name (64 hex chars)
+    // Validate path is a valid XOR name + optional deeper path + optional trailing slash
     if (!PATH_REGEX.test(path)) {
         res.writeHead(400, { "Content-Type": "text/plain" });
         return res.end("Invalid XOR name");
@@ -40,13 +40,13 @@ const server = http.createServer(async (req, res) => {
             return res.end(`Error fetching XOR content: ${antResp.statusText}`);
         }
 
-        // Check antResp.body before piping
         if (!antResp.body) {
             res.writeHead(500, { "Content-Type": "text/plain" });
             return res.end("Error: Empty response body");
         }
 
-        res.writeHead(200, {
+        // Forward status code and content-type header from Rust server
+        res.writeHead(antResp.status, {
             "Content-Type":
                 antResp.headers.get("content-type") ||
                 "application/octet-stream",
