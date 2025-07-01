@@ -2,7 +2,6 @@ import http from "http";
 import { WebSocketServer } from "ws";
 import type { WebSocket } from "ws";
 import fetch, { Response as FetchResponse } from "node-fetch";
-import path from "path";
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8081;
 const ANTPP_ENDPOINT = process.env.ANTPP_ENDPOINT || "http://localhost:18888";
@@ -17,9 +16,47 @@ const MAX_CONCURRENT = 5;
 const TIMEOUT_MS = 60000;
 
 // create HTTP server for Railway or standalone use
-const server = http.createServer((req, res) => {
-    res.writeHead(200);
-    res.end("✨ WebSocket server is live ✨");
+const server = http.createServer(async (req, res) => {
+    const path = req.url?.slice(1); // remove leading "/"
+
+    // If root, respond with default message
+    if (!path) {
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        return res.end("✨ WebSocket server is live ✨");
+    }
+
+    // Validate path is a valid XOR name (64 hex chars)
+    if (!/^[a-f0-9]{64}$/.test(path)) {
+        res.writeHead(400, { "Content-Type": "text/plain" });
+        return res.end("Invalid XOR name");
+    }
+
+    try {
+        // Proxy GET request to Rust antTP server on port 18888
+        const antResp = await fetch(`${ANTPP_ENDPOINT}/${path}`);
+
+        if (!antResp.ok) {
+            res.writeHead(antResp.status);
+            return res.end(`Error fetching XOR content: ${antResp.statusText}`);
+        }
+
+        // Check antResp.body before piping
+        if (!antResp.body) {
+            res.writeHead(500, { "Content-Type": "text/plain" });
+            return res.end("Error: Empty response body");
+        }
+
+        res.writeHead(200, {
+            "Content-Type":
+                antResp.headers.get("content-type") ||
+                "application/octet-stream",
+        });
+
+        antResp.body.pipe(res);
+    } catch (err: any) {
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end(`Server error: ${err.message}`);
+    }
 });
 
 // start server
