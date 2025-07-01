@@ -41,17 +41,26 @@ we are going to create a git folder within the home directory, to do this you ca
 
 sudo mkdir -p /home/git/safebox-server
 
-we will now download the safebox server repo from github into the git directory:
+Now you should go to https://github.com/SafeMedia/safebox-server and click the fork button. This will make a copy of the repo. Then go to your newly created repo and edit the caddy file. Here is an example forked repo path to the caddy file, replace 'your-account' with your own github account:
 
-git clone https://github.com/SafeMedia/safebox-server.git /home/git/safebox-server
+https://github.com/your-account/safebox-server/blob/main/Caddyfile
 
-You should now edit the Caddyfile, so that your domain is used instead.
+There you can click the edit button. Then replace the first line 'mydomain.com {' with your own domain, or sub domain:
 
-You can do this by:
+sub.mydomain.com {
 
-nano /home/git/safebox-server/Caddyfile
+or
+
+mydomain.com {
+
+we will now download the safebox server repo from the new github into the git directory on our server:
+
+git clone https://github.com/your-repo/safebox-server.git /home/git/safebox-server
+
+If you don't want to fork the repo, you can just clone the main repo and edit the caddyfile using nano
 
 We now need to ensure you set up your domain to point to your server.
+
 You must set your A record in your domain providers settings to point to your servers IP address. This may take a few hours or longer, depending on your location. You can check many dns lookup websites to see if it has updated yet.
 
 Once that is done you can proceed:
