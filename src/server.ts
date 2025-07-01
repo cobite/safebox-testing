@@ -7,7 +7,7 @@ const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8081;
 const ANTPP_ENDPOINT = process.env.ANTPP_ENDPOINT || "http://localhost:18888";
 
 // this allows paths like: abcdef...64/filename.png or deeper (e.g. /images/file.png)
-const PATH_REGEX = /^[a-f0-9]{64}(\/[\w\-._~:@!$&'()*+,;=]+)*$/i;
+const PATH_REGEX = /^[a-f0-9]{64}(\/[\w\-._~:@!$&'()*+,;=]+)*\/?$/i;
 
 type FetchJob = { address: string; ws: WebSocket };
 const queue: FetchJob[] = [];
