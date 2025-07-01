@@ -39,7 +39,7 @@ RUN npm install
 COPY . .
 RUN npm run build
 
-EXPOSE 8081
+EXPOSE 18888
 
 CMD ["sh", "-c", "anttp & npm start"]
 
