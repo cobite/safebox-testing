@@ -68,9 +68,16 @@ Trouble-shooting
 
 You can test to see if your websocket connection is working via postman desktop application, by creating a new websocket request type, and entering:
 
-ws://localhost:8081
+wss://domain.com
 
-You should see
+You should see 'Connected to wss://domain.com'
+
+You can now send a message like: '91d16e58e9164bccd29a8fd8d25218a61d8253b51c26119791b2633ff4f6b309/start-a-node.png' which should send a binary response starting with: '...v{"mimeType":
+00000010: 22 69 6D 61 67 65 2F 70 6E 67 22 2C 22 78 6F 72 "image/png","xor
+00000020: 6E 61 6D 65 22 3A 22 39 31 64 31 36 65 35 38 65 name":"91d16e58e
+00000030: 39 31 36 34 62 63 63 64 32 39 61 38 66 64 38 64 9164bccd29a8'
+
+You can also just go to your web browser, enter a new tab and type https://domain.com/91d16e58e9164bccd29a8fd8d25218a61d8253b51c26119791b2633ff4f6b309/start-a-node.png
 
 You can check to see if it is working by checking the logs in the docker container.
 
@@ -80,4 +87,4 @@ docker ps
 
 See logs for container:
 
-docker container logs namecon
+docker container logs container-id
