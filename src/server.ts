@@ -33,7 +33,9 @@ const server = http.createServer(async (req, res) => {
 
     try {
         // Proxy GET request to Rust antTP server on port 18888
-        const antResp = await fetch(`${ANTPP_ENDPOINT}/${path}`);
+        const antResp = await fetch(`${ANTPP_ENDPOINT}/${path}`, {
+            redirect: "follow",
+        });
 
         if (!antResp.ok) {
             res.writeHead(antResp.status);
