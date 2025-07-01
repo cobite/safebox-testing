@@ -26,7 +26,7 @@ const server = http.createServer(async (req, res) => {
     }
 
     // Validate path is a valid XOR name (64 hex chars)
-    if (!/^[a-f0-9]{64}$/.test(path)) {
+    if (!PATH_REGEX.test(path)) {
         res.writeHead(400, { "Content-Type": "text/plain" });
         return res.end("Invalid XOR name");
     }
