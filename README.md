@@ -60,6 +60,10 @@ To start the application, we will do:
 
 docker compose -f /home/git/safebox-server/docker-compose.yml up -d
 
+if you want to rebuild the image (if you pulled new source code and have older version), you can do this instead:
+
+docker compose -f /home/git/safebox-server/docker-compose.yml up --build -d
+
 Trouble-shooting
 
 You can test to see if your websocket connection is working via postman desktop application, by creating a new websocket request type, and entering:
