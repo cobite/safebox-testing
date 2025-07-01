@@ -5,7 +5,7 @@ services:
         build: .
         container_name: safebox_app
         expose:
-            - "18888"
+            - "8081"
         restart: unless-stopped
 
     caddy:
