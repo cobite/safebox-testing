@@ -87,7 +87,7 @@ Trouble-shooting
 
 You can test to see if your websocket connection is working via postman desktop application, by creating a new websocket request type, and entering:
 
-wss://domain.com
+wss://domain.com/ws
 
 You should see 'Connected to wss://domain.com'
 
