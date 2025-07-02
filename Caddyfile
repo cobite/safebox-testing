@@ -1,5 +1,5 @@
-mydomain.com {
-    @noSlash path_regexp noSlash ^/[a-f0-9]{64}$
+ant.safemedia.com {
+  @noSlash path_regexp noSlash ^/[a-f0-9]{64}$
 
     redir @noSlash {http.request.uri}/ 308
 
