@@ -8,7 +8,7 @@ ant.safemedia.com {
     reverse_proxy /ws* app:8081
 
     # Proxy /anttp/* to app:18888, strip /anttp prefix when sending
-    handle /anttp/* {
+    handle_path /anttp/* {
         uri strip_prefix /anttp
         reverse_proxy app:18888 {
             header_up Host {host}
