@@ -1,7 +1,5 @@
 ws.safemedia.com {
 
-    reverse_proxy app:8081
-
     # Proxy WebSocket traffic separately
     reverse_proxy anttp_server:8081
 
@@ -16,8 +14,7 @@ ws.safemedia.com {
 anttp.safemedia.com {
 
     # Proxy all other traffic to antTP Rust server
-    reverse_proxy /{path*} anttp_server:18888
-
+    reverse_proxy anttp_server:18888
 
     encode gzip
 
@@ -30,8 +27,7 @@ anttp.safemedia.com {
 dweb.safemedia.com {
 
     # Proxy all other traffic to DWEB Rust server
-    reverse_proxy /{path*} dweb_server:8083
-
+    reverse_proxy  dweb_server:8083
 
     encode gzip
 
