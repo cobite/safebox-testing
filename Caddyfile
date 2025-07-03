@@ -1,9 +1,5 @@
 ant.safemedia.com {
 
-# Show 'safebox server' on root /
-
-    respond / "safebox server test"
-
     # Proxy WebSocket traffic separately
     reverse_proxy /ws* app:8081
 
@@ -19,6 +15,10 @@ ant.safemedia.com {
             # Rewrite Location header in responses from backend
             header_down Location replace ^/(.*)$ /anttp/{1}
         }
+    }
+
+    handle / {
+        respond "safebox server"
     }
 
 
