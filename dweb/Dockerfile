@@ -1,12 +1,11 @@
-FROM rust:nightly
+FROM rustlang/rust:nightly-alpine as builder
 
 # Install deps
-RUN apt-get update && apt-get install -y \
+RUN apk add --no-cache \
   git \
-  build-essential \
-  pkg-config \
-  libssl-dev \
-  && rm -rf /var/lib/apt/lists/*
+  build-base \
+  pkgconfig \
+  openssl-dev
 
 # Clone DWEB repo
 WORKDIR /usr/src
