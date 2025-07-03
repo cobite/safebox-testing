@@ -9,6 +9,7 @@ ant.safemedia.com {
 
     # Proxy /anttp/* to app:18888, strip /anttp prefix when sending
     handle_path /anttp/* {
+        rewrite * {path}
         reverse_proxy app:18888 {
             header_up Host {host}
             header_up X-Real-IP {remote_host}
