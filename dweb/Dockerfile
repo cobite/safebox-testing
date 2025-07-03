@@ -1,0 +1,21 @@
+FROM rust:1.76-slim  # Adjust to latest stable or nightly if needed
+
+# Install deps
+RUN apt-get update && apt-get install -y \
+  git \
+  build-essential \
+  pkg-config \
+  libssl-dev \
+  && rm -rf /var/lib/apt/lists/*
+
+# Clone DWEB repo
+WORKDIR /usr/src
+RUN git clone https://codeberg.org/happybeing/dweb.git
+
+# Build
+WORKDIR /usr/src/dweb
+RUN cargo build --release
+
+EXPOSE 8083
+
+CMD ["./target/release/dweb"]

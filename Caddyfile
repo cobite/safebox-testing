@@ -1,26 +1,39 @@
-ant.safemedia.com {
+ws.safemedia.com {
+
+    reverse_proxy app:8081
 
     # Proxy WebSocket traffic separately
-    reverse_proxy /ws* app:8081
+    reverse_proxy anttp_server:8081
 
-    handle /anttp/* {
-        uri strip_prefix /anttp
-        reverse_proxy app:18888 {
-            header_up Host {host}
-            header_up X-Real-IP {remote_host}
-            header_up X-Forwarded-For {remote_host}
-            header_up X-Forwarded-Port {server_port}
-            header_up X-Forwarded-Proto {scheme}
+    encode gzip
 
-            header_down Location edit replace ^/(.*)$ /anttp/{$1}
-        }
+    log {
+        output stdout
     }
 
+}
 
-    handle / {
-        respond "safebox server"
+anttp.safemedia.com {
+
+    # Proxy all other traffic to antTP Rust server
+    reverse_proxy /{path*} anttp_server:18888
+
+
+    encode gzip
+
+    log {
+        output stdout
     }
 
+}
+
+dweb.safemedia.com {
+
+    # Proxy all other traffic to DWEB Rust server
+    reverse_proxy /{path*} dweb_server:8083
+
+
+    encode gzip
 
     log {
         output stdout

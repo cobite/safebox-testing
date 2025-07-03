@@ -5,6 +5,8 @@ import fetch, { Response as FetchResponse } from "node-fetch";
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 8081;
 const ANTPP_ENDPOINT = process.env.ANTPP_ENDPOINT || "http://localhost:18888";
+const DWEB_ENDPOINT =
+    process.env.DWEB_ENDPOINT_ENDPOINT || "http://localhost:8083";
 
 // this allows paths like: abcdef...64/filename.png or deeper (e.g. /images/file.png)
 const PATH_REGEX = /^[a-f0-9]{64}(\/[\w\-._~:@!$&'()*+,;=]+)*\/?$/i;
@@ -15,14 +17,14 @@ let activeJobs = 0;
 const MAX_CONCURRENT = 5;
 const TIMEOUT_MS = 60000;
 
-// create HTTP server for Railway or standalone use
-const server = http.createServer(async (req, res) => {
+// create HTTP server
+const anttpServer = http.createServer(async (req, res) => {
     const path = req.url?.slice(1); // remove leading "/"
 
     // If root, respond with default message
     if (!path) {
         res.writeHead(200, { "Content-Type": "text/plain" });
-        return res.end("✨ WebSocket server is live ✨");
+        return res.end("anttp server is live");
     }
 
     // Validate path is a valid XOR name + optional deeper path + optional trailing slash
@@ -59,10 +61,10 @@ const server = http.createServer(async (req, res) => {
 });
 
 // start server
-server.headersTimeout = 120000; // 120 seconds (2 minutes)
+anttpServer.headersTimeout = 120000; // 120 seconds (2 minutes)
 
 // attach WebSocket server
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ server: anttpServer });
 console.log(`✅ WebSocket server initialized.`);
 
 // handle new connections
@@ -88,7 +90,7 @@ wss.on("connection", (ws, req) => {
     });
 });
 
-server.listen(PORT, () => {
+anttpServer.listen(PORT, () => {
     console.log(`✅ HTTP + WebSocket server running on port ${PORT}`);
 });
 
