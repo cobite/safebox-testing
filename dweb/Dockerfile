@@ -23,5 +23,7 @@ RUN cargo build --release
 
 EXPOSE 8083
 
-CMD ["./target/release/dweb", "serve", "--port", "8083"]
+CMD ["./target/release/dweb", "serve", "--port", "8083", "--host", "0.0.0.0"]
+
+
 
