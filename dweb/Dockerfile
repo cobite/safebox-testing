@@ -1,4 +1,4 @@
-FROM rust:nightly-slim
+FROM rust:nightly
 
 # Install deps
 RUN apt-get update && apt-get install -y \
