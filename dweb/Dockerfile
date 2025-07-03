@@ -5,7 +5,10 @@ RUN apk add --no-cache \
   git \
   build-base \
   pkgconfig \
-  openssl-dev
+  openssl-dev \
+  protobuf \
+  protobuf-dev \
+  protoc
 
 # Clone DWEB repo
 WORKDIR /usr/src
