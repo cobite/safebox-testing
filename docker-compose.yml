@@ -3,7 +3,7 @@ version: "3.8"
 services:
     anttp_server:
         build:
-            context: ..
+            context: .
             dockerfile: anttp/Dockerfile
         container_name: anttp_server
         expose:
