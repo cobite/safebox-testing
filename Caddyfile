@@ -20,7 +20,6 @@ ant.safemedia.com {
     # Do NOT forward any other paths (e.g., /91d16e58... or others)
     # They will fall through and get 404 by default
 
-    encode gzip
 
     log {
         output stdout
