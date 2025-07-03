@@ -7,7 +7,8 @@ ant.safemedia.com {
 
     # Proxy ONLY paths starting with /anttp/
     # Strip /anttp prefix before forwarding to Rust server
-    handle_path /anttp/* {
+    handle /anttp/* {
+        uri strip_prefix /anttp
         reverse_proxy app:18888 {
             header_up Host {host}
             header_up X-Real-IP {remote_host}
