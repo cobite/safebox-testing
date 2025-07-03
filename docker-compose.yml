@@ -18,8 +18,6 @@ services:
         expose:
             - "8083" # Rust DWEB HTTP server port
         restart: unless-stopped
-        networks:
-            - dwebnet
 
     caddy:
         image: caddy:2-alpine
@@ -36,20 +34,6 @@ services:
             - caddy_data:/data
             - caddy_config:/config
 
-    searchbar:
-        build:
-            context: ./searchbar
-        ports:
-            - "8080:3000" # external:internal
-        depends_on:
-            - dweb_server
-        networks:
-            - dwebnet
-
 volumes:
     caddy_data:
     caddy_config:
-
-networks:
-    dwebnet:
-        driver: bridge
