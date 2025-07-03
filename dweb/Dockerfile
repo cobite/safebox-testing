@@ -1,6 +1,6 @@
 FROM rustlang/rust:nightly-alpine as builder
 
-# Install deps
+# Install required build tools and OpenSSL
 RUN apk add --no-cache \
   git \
   build-base \
@@ -8,9 +8,11 @@ RUN apk add --no-cache \
   openssl-dev \
   protobuf \
   protobuf-dev \
-  protoc
+  protoc \
+  musl-dev \
+  perl
 
-# Add rustfmt (needed by ant-protocol)
+# Install rustfmt for required crates (like ant-protocol)
 RUN rustup component add rustfmt
 
 # Clone DWEB repo
