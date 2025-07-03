@@ -10,8 +10,7 @@ ant.safemedia.com {
     reverse_proxy /ws* app:8081
 
     # Proxy ONLY paths starting with /anttp/ to Rust AntTP server
-    handle /anttp/* {
-        uri strip_prefix /anttp
+    handle_path /anttp/* {
         reverse_proxy app:18888 {
             header_up Host {host}
             header_up X-Real-IP {remote_host}
