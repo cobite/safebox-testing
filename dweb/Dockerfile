@@ -1,4 +1,4 @@
-FROM rust:1.76-slim  # Adjust to latest stable or nightly if needed
+FROM rust:1.76-slim
 
 # Install deps
 RUN apt-get update && apt-get install -y \
