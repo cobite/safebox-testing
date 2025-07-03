@@ -1,4 +1,4 @@
-FROM rust:1.76-slim
+FROM rust:1.77-slim
 
 # Install build dependencies
 RUN apt-get update && apt-get install -y \
