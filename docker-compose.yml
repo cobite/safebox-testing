@@ -2,7 +2,8 @@ version: "3.8"
 
 services:
     anttp_server:
-        build: .
+        build:
+            context: ./anttp
         container_name: anttp_server
         expose:
             - "8081" # Node.js WebSocket server port
@@ -10,7 +11,8 @@ services:
         restart: unless-stopped
 
     dweb_server:
-        build: .
+        build:
+            context: ./dweb
         container_name: dweb_server
         expose:
             - "8083" # Rust DWEB HTTP server port
