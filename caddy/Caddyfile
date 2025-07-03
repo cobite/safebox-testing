@@ -16,6 +16,15 @@ anttp.safemedia.com {
     # Proxy all other traffic to antTP Rust server
     reverse_proxy anttp_server:18888
 
+    @html {
+        header Content-Type text/html*
+    }
+
+    filter @html {
+        find_body "</body>"
+        replace "<div>header</div></body>"
+    }
+
     encode gzip
 
     log {
