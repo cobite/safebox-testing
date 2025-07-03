@@ -10,6 +10,9 @@ RUN apk add --no-cache \
   protobuf-dev \
   protoc
 
+# Add rustfmt (needed by ant-protocol)
+RUN rustup component add rustfmt
+
 # Clone DWEB repo
 WORKDIR /usr/src
 RUN git clone https://codeberg.org/happybeing/dweb.git
