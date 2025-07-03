@@ -3,19 +3,19 @@ ant.safemedia.com {
     # Proxy WebSocket traffic separately
     reverse_proxy /ws* app:8081
 
-    handle /anttp/\* {
+    handle /anttp/* {
         uri strip_prefix /anttp
         reverse_proxy app:18888 {
-        header_up Host {host}
-        header_up X-Real-IP {remote_host}
-        header_up X-Forwarded-For {remote_host}
-        header_up X-Forwarded-Port {server_port}
-        header_up X-Forwarded-Proto {scheme}
+            header_up Host {host}
+            header_up X-Real-IP {remote_host}
+            header_up X-Forwarded-For {remote_host}
+            header_up X-Forwarded-Port {server_port}
+            header_up X-Forwarded-Proto {scheme}
 
-        header_down Location replace "^/(.*)$" "/anttp/{1}"
+            header_down Location replace ^/(.*)$ /anttp/{1}
+        }
     }
 
-}
 
     handle / {
         respond "safebox server"
