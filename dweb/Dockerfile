@@ -1,18 +1,16 @@
-FROM rustlang/rust:nightly-alpine as builder
+FROM rust:1.76-slim
 
-# Install required build tools and OpenSSL
-RUN apk add --no-cache \
+# Install build dependencies
+RUN apt-get update && apt-get install -y \
   git \
-  build-base \
-  pkgconfig \
-  openssl-dev \
-  protobuf \
-  protobuf-dev \
-  protoc \
-  musl-dev \
-  perl
+  build-essential \
+  pkg-config \
+  libssl-dev \
+  protobuf-compiler \
+  curl \
+  && rm -rf /var/lib/apt/lists/*
 
-# Install rustfmt for required crates (like ant-protocol)
+# Install rustfmt
 RUN rustup component add rustfmt
 
 # Clone DWEB repo
